@@ -48,6 +48,15 @@ const html = `<!doctype html>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"The Seed Library","applicationCategory":"DeveloperApplication","operatingSystem":"Any (web, offline-capable)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Grow-not-install: tiny konomi seeds grow working machine-learning builds locally and offline. Knowledge lives in readable, provable seeds rather than billion-parameter weights. Built on the Konomi architecture by Thomas Frumkin; reuses fall-spore, pattern-organs and SENTINEL.","author":{"@type":"Organization","name":"sjgant80-hub"},"url":"${LIVE}"}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a seed in the Seed Library?","acceptedAnswer":{"@type":"Answer","text":"A seed is a tiny konomi tag (around 50 bytes) carrying no trained weights — only a recipe pointer (which domain), a number, and a packed 10-byte genome, plus a signature. A universal ribosome reads the seed and grows a working build from the node's own local data, offline."}},
+{"@type":"Question","name":"How can knowledge live in seeds instead of model weights?","acceptedAnswer":{"@type":"Answer","text":"The learned model here is an interpretable scorecard — a short list of single-feature threshold rules. That whole model packs into a 10-byte genome, so the knowledge lives in a readable, provable, editable seed rather than being smeared across billions of parameters. In this proof the entire four-domain library is 226 bytes."}},
+{"@type":"Question","name":"Does it really work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every germination runs inside an offline probe that traps fetch, XMLHttpRequest and WebSocket; if any network call were attempted it would fail. The build grows from the seed and local data with no network at all."}},
+{"@type":"Question","name":"Is the data real?","acceptedAnswer":{"@type":"Answer","text":"One domain is real data: the UCI Online Shoppers Purchasing Intention dataset (12,330 real sessions). The other three (field triage, water potability, crop planting) are realistic-synthetic, generated from known rules plus noise — an honest stand-in for survival-critical domains, not real-world measurements."}},
+{"@type":"Question","name":"What stops a tampered seed from running?","acceptedAnswer":{"@type":"Answer","text":"A SENTINEL-style guard: each seed carries an HMAC-SHA256 signature over its contents. The ribosome verifies it before parsing; a tampered or unsigned seed fails the guard and never germinates."}}
+]}
+</script>
 <style>
 :root{
   --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --ink:#e8ecf3; --dim:#9aa6b8; --line:#2a2f3a;
@@ -171,6 +180,15 @@ a{color:var(--accent2)}
     shapes a <i>candidate</i> grow-seed from your words — it is never part of any graded number.</p>
     <div class="row"><input type="text" id="imag" placeholder="e.g. flag critical patients from vital signs"><button id="imagBtn" class="alt">propose a seed</button></div>
     <p class="mono" id="imagOut" style="margin-top:8px"></p>
+  </div>
+
+  <h2>FAQ</h2>
+  <div class="panel" style="padding:6px 18px">
+    <details><summary><b>What is a seed?</b></summary><p class="note">A tiny konomi tag (~50 bytes) carrying no trained weights — only a recipe pointer, a number and a packed 10-byte genome, plus a signature. A universal ribosome reads it and grows a working build from the node's own local data, offline.</p></details>
+    <details><summary><b>How can knowledge live in seeds instead of weights?</b></summary><p class="note">The learned model is an interpretable scorecard — a short list of single-feature threshold rules — which packs into a 10-byte genome. The knowledge lives in a readable, provable, editable seed rather than smeared across billions of parameters. Here the whole four-domain library is 226 bytes.</p></details>
+    <details><summary><b>Does it really work offline?</b></summary><p class="note">Yes. Every germination runs inside an offline probe that traps fetch, XMLHttpRequest and WebSocket. The build grows from the seed and local data with no network at all.</p></details>
+    <details><summary><b>Is the data real?</b></summary><p class="note">One domain is real (UCI Online Shoppers, 12,330 sessions). The other three are realistic-synthetic, generated from known rules plus noise — an honest stand-in for survival-critical domains, not real-world measurements.</p></details>
+    <details><summary><b>What stops a tampered seed from running?</b></summary><p class="note">A SENTINEL-style guard: each seed carries an HMAC-SHA256 signature. The ribosome verifies it before parsing; a tampered or unsigned seed fails the guard and never germinates.</p></details>
   </div>
 
   <div class="foot">
