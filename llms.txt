@@ -1,0 +1,31 @@
+# The Seed Library
+
+> Grow-not-install. Knowledge stored as tiny, readable konomi SEEDS — not smeared across billion-parameter
+> weights. A universal ribosome grows a working build from each seed on the node's OWN data, OFFLINE. Carry the
+> whole library (a few hundred bytes) in your pocket; plant a seed on any device and it grows the build. A proof
+> on four curated domains (one real, three realistic-synthetic survival domains), sealed and re-derived by CI.
+
+Live page: https://sjgant80-hub.github.io/seed-library/
+
+## What it demonstrates (measured, sealed)
+- Knowledge-in-seeds-not-weights: the whole library is a sum of tiny seed tags (under 1 KB), each a packed
+  10-byte genome plus a recipe pointer and a signature — no weights file.
+- Each seed grows a WORKING build: every domain's seed germinates to a scorecard graded on held-out cases it
+  never grew on (held-out AUC above chance).
+- Grow-only-what's-needed: one domain germinates on demand, in isolation, in milliseconds.
+- Offline: every germination runs with fetch/XMLHttpRequest/WebSocket trapped, touching no network.
+- Defense-grows-in (SENTINEL): a tampered or unsigned seed fails the guard and never germinates.
+
+## Honesty
+- Germination is deterministic assembly (a decoder + a seeded evolutionary search over an interpretable
+  scorecard). No language model runs in anything graded. A small local LLM is offered only as "imagination"
+  (proposing a seed from free text) and is kept out of every measured number.
+- One domain is real data (UCI Online Shoppers, Sakar & Kastro 2018, CC BY 4.0). Three (triage, water, crop)
+  are realistic-synthetic, generated from known rules — an honest stand-in for survival domains, not real
+  measurements. This is a proof on a few curated domains, not a full civilizational library.
+
+## Provenance
+- Konomi architecture by Thomas Frumkin. Reuses fall-spore, pattern-organs, SENTINEL, and the witness gate.
+
+## Reproduce
+- `npm test` · `node witness-all.mjs` · `node tools/seal.mjs --check` · `node tools/run.mjs --verify`

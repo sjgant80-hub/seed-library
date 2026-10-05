@@ -1,0 +1,31 @@
+name: gate
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: tests
+        run: node --test
+      - name: witness mutation gate
+        run: node witness-all.mjs
+      - name: seal matches its inputs
+        run: node tools/seal.mjs --check
+      - name: re-derive the sealed run (if measured)
+        run: |
+          if [ -f data/run.json ]; then
+            node tools/run.mjs --verify
+          else
+            echo "no data/run.json yet — prereg-only commit, nothing to re-derive"
+          fi
+      - name: grade (if measured)
+        run: |
+          if [ -f data/run.json ]; then
+            node tools/run.mjs --grade
+          fi

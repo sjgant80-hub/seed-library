@@ -1,0 +1,26 @@
+The Seed Library — NOTICE / attributions
+=========================================
+
+Powered by the KONOMI ARCHITECTURE, created by THOMAS FRUMKIN. The konomi-family seed tag,
+the compressed-genome idea and the overall architecture are Thomas Frumkin's; used here with that credit.
+
+Reused building blocks (vendored, credited):
+- fall-spore (sjgant80-hub) — the digital-spore / grow-not-install pattern: grow → fit → grade-on-held-out,
+  the seeded RNG, the stratified split, the AUC, the offline probe, and the konomi-family spore codec. The
+  full engine is vendored in vendor/fall-spore and reused verbatim on the real UCI data (the bonus result).
+- pattern-organs (sjgant80-hub) — the "grow an organ from a stem" miner/evolver that fall-spore builds on.
+- SENTINEL (sjgant80-hub) — the "defense grows in / verify before you parse" discipline. This library's seed
+  guard is a shared-secret HMAC-SHA256 (symmetric), which is weaker than SENTINEL's Ed25519 public-key
+  signatures and is stated as such; the idea of refusing to parse an unverified seed is SENTINEL's.
+- witness (sjgant80-hub / claudedidy) — the deterministic mutation + fuzz build gate, vendored in .witness.
+
+Data:
+- Online Shoppers Purchasing Intention Dataset — C. Sakar and Y. Kastro, UCI Machine Learning Repository
+  (2018), DOI 10.24432/C5F88Q, licensed CC BY 4.0. Introduced in Sakar, Polat, Katircioglu & Kastro,
+  "Real-time prediction of online shoppers' purchasing intention using multilayer perceptron and LSTM
+  recurrent neural networks", Neural Computing & Applications (2019). The only real labelled dataset here.
+- triage, water and crop are REALISTIC-SYNTHETIC: generated deterministically from a known ground-truth rule
+  plus seeded noise. They are an honest stand-in for survival-critical domains, not real-world measurements.
+
+SHA-256 / HMAC-SHA256 in sha256.mjs is a hand-rolled implementation of the public FIPS-180-4 standard, and is
+cross-checked against Node's own crypto in sha256.test.mjs.

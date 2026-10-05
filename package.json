@@ -1,0 +1,16 @@
+{
+  "name": "seed-library",
+  "version": "1.0.0",
+  "description": "The Seed Library — grow-not-install: tiny konomi seeds grow working builds locally, offline. Knowledge lives in seeds, not weights.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "witness": "node witness-all.mjs",
+    "seal": "node tools/seal.mjs",
+    "run": "node tools/run.mjs --run",
+    "verify": "node tools/run.mjs --verify",
+    "grade": "node tools/run.mjs --grade",
+    "page": "node tools/make-page.mjs"
+  }
+}

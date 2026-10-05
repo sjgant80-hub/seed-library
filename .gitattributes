@@ -1,0 +1,5 @@
+# Force LF everywhere so the sealed sha256 of every input is identical on Windows, Linux and CI.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary

@@ -1,0 +1,47 @@
+[
+  {
+    "mutation": "< → <=",
+    "snippet": "for (let i = 0; i < 16; i++) {",
+    "reason": "loop upper bound; i=16 writes w[16] which the i=16..63 schedule loop then recomputes — equivalent"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "for (let i = 16; i < 64; i++) {",
+    "reason": "loop upper bound; i=64 writes w[64] on a Uint32Array(64) — out-of-bounds write silently dropped, never read"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "for (let i = 0; i < 8; i++) { out[i * 4] = (h[i] >>> 24) & 0xff; out[i * 4 + 1] = (h[i] >>",
+    "reason": "output loop; i=8 writes out[32..35] on a Uint8Array(32) — out-of-bounds write silently dropped"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "for (let i = 0; i < blockSize; i++) { ipad[i] = pad[i] ^ 0x36; opad[i] = pad[i] ^ 0x5c; }",
+    "reason": "pad loop; i=64 writes ipad/opad[64] on Uint8Array(64) — out-of-bounds write silently dropped"
+  },
+  {
+    "mutation": "> → >=",
+    "snippet": "return { seedBytes, grownBytes, ratio: seedBytes > 0 ? round6(grownBytes / seedBytes) : 0 ",
+    "reason": "seedBytes>=0: when seedBytes==0, grownBytes/0 is Infinity and round6 maps non-finite to 0 — identical to the :0 branch"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "if (!Number.isInteger(v) || v < 0) v = 0;",
+    "reason": "v<=0 vs v<0 differ only at v==0, where both set v=0 (identity)"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "while (j < order.length && scores[order[j]] === scores[order[i]]) { if (y[order[j]]) gp++;",
+    "reason": "j<=length evaluates one extra iteration whose second clause (scores[order[length]]===x) is undefined===number → false; body never runs — equivalent"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "for (let r = 0; r < MAXRULES; r++) {",
+    "reason": "on is always a 6-bit field (<=63) everywhere a genome is produced, so bit MAXRULES is 0 and the r==MAXRULES iteration hits the inactive-rule continue — equivalent"
+  },
+  {
+    "mutation": "< → <=",
+    "snippet": "const better = (a, b) => a.fitness > b.fitness || (a.fitness === b.fitness && a.n < b.n);",
+    "reason": "tie-break a.n<=b.n vs a.n<b.n only differs when a.n===b.n, which never holds for two distinct individuals (n is unique per birth) — unreachable tie"
+  }
+]
