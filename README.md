@@ -30,7 +30,31 @@ Four curated domains — **one real** (UCI Online Shoppers) and **three realisti
 (predictions + sha256 of every input) in `data/prereg.json` and committed **before** any grading on fresh seeds;
 the measurement in `data/run.json` is re-derived by CI on every push (`node tools/run.mjs --verify`).
 
-<!-- RESULTS -->
+**The whole library is 226 bytes** — four fixed seeds (~55 B each), carrying no weights, that grow a 1,129-byte
+body. All seven claims pass (sealed in commit `47cd001`, grading seeds 21–25):
+
+| claim | result | |
+|---|---|---|
+| library-is-tiny | the whole library is **226 bytes** (4 seeds → a 1,129-byte grown body) | ✅ |
+| each-grows-working-build | held-out AUC: shopper 0.815, triage 0.952, water 0.748, crop 0.754 (chance 0.5) | ✅ |
+| seeds-smaller-than-grown | grown/seed ratio 6.2×, 4.6×, 3.4×, 5.7× (median 5.7×) | ✅ |
+| grow-on-demand | grew one domain alone in ~0.3 s (198 evals) → working build | ✅ |
+| germinates-offline | every germination ran with fetch/XHR/WebSocket trapped, touching none | ✅ |
+| defense-grows-in (SENTINEL) | every seed passes the guard; every tampered copy is refused germination | ✅ |
+| reproducible | CI re-derives the record from the seal on every push (`--verify`) | ✅ |
+
+| domain | kind | seed B | grown | held-out AUC | accuracy | median AUC (5 seeds) |
+|---|---|---|---|---|---|---|
+| Online shoppers | **real** | 58 | 362 (6.2×) | 0.815 | 0.799 | 0.801 |
+| Field triage | synthetic | 57 | 264 (4.6×) | 0.952 | 0.983 | 0.904 |
+| Water potability | synthetic | 56 | 190 (3.4×) | 0.748 | 0.769 | 0.737 |
+| Crop planting | synthetic | 55 | 313 (5.7×) | 0.754 | 0.674 | 0.778 |
+
+**Bonus** (literal reuse of fall-spore's own engine on the real UCI data, offline): a 32-byte spore grows a
+4,739-byte organ (**148×**), held-out AUC 0.819.
+
+For the notional contrast: storing comparable knowledge in dense weights at 2 bytes/parameter would be ~2 MB for a
+tiny 1M-param model and ~140 GB for a 70B model (illustration, not a measured claim). The library here is 226 **bytes**.
 
 Run the grade yourself: `node tools/run.mjs --grade`.
 

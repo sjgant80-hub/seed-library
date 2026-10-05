@@ -21,7 +21,9 @@ function inlineKernel(src) {
 
 const sha256 = inlineKernel('sha256.mjs');
 const seedlib = inlineKernel('seedlib.mjs');
-const domains = inlineKernel('domains.mjs');
+// domains.mjs defines its own private `rng` (identical to seedlib's); rename it in the shared inline scope so
+// the two declarations don't collide. domains.mjs on disk is untouched (its sha256 is sealed).
+const domains = inlineKernel('domains.mjs').replace(/\brng\b/g, 'rngSynth');
 const csv = read('data/online_shoppers_intention.csv').replace(/\r\n/g, '\n').trim();
 let RUN = null, PREREG = null;
 try { RUN = JSON.parse(read('data/run.json')); } catch { /* not measured yet */ }
