@@ -1,5 +1,8 @@
-# Force LF everywhere so the sealed sha256 of every input is identical on Windows, Linux and CI.
+# Force LF for code/text so the sealed sha256 of every input is identical on Windows, Linux and CI.
 * text=auto eol=lf
+# The UCI dataset is sealed by sha256 and stored VERBATIM (its original CRLF line endings) — treat it as
+# binary so git never normalises it; otherwise the committed blob would differ from what the seal hashed.
+*.csv -text
 *.png binary
 *.jpg binary
 *.gif binary
