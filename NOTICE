@@ -12,7 +12,7 @@ Reused building blocks (vendored, credited):
 - SENTINEL (sjgant80-hub) — the "defense grows in / verify before you parse" discipline. This library's seed
   guard is a shared-secret HMAC-SHA256 (symmetric), which is weaker than SENTINEL's Ed25519 public-key
   signatures and is stated as such; the idea of refusing to parse an unverified seed is SENTINEL's.
-- witness (sjgant80-hub / claudedidy) — the deterministic mutation + fuzz build gate, vendored in .witness.
+- witness (sjgant80-hub/witness) — the deterministic mutation + fuzz build gate, vendored in .witness.
 
 Data:
 - Online Shoppers Purchasing Intention Dataset — C. Sakar and Y. Kastro, UCI Machine Learning Repository
